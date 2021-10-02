@@ -4,6 +4,12 @@ namespace Taks1_1
 {
     class Program
     {
+
+        /*
+        * Написать программу, которая в цикле введет 8 значений
+        * и посчитает сумму чисел, которые являются квадратами
+        * целых чисел(квадратный корень из которых – целое число)
+        */
         static void Task1()
         {
             var number_count = 8;
@@ -36,7 +42,10 @@ namespace Taks1_1
             return tmp % 1 == 0;
         }
 
-        // Implements Task 2
+        /*
+        * Дано натуральное число n, вычислить  
+        * sqrt( 1*3 + ... sqrt( 2*3 + sqrt(n*3) ) )
+        */
         static void Task2()
         {
             Console.WriteLine("Input N:");
