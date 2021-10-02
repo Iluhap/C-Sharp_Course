@@ -42,9 +42,11 @@ namespace Task2_1
 
             for (int i = 0; i < numbers.Count; i++)
             {
-                for (int j = i + 1; j < numbers.Count; j++)
+                for (int j = 0; j < numbers.Count; j++)
                 {
-                    if (numbers[i] == numbers[j])
+                    if (i == j)
+                        continue;
+                    else if (numbers[i] == numbers[j])
                         return false;
                 }
             }
