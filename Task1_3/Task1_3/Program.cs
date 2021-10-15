@@ -7,10 +7,10 @@ namespace Task
     {
         static void Main(string[] args)
         {
-            //Task1();
-            //Task2();
-            //Task3();
-            //Task4();
+            // Task1();
+            // Task2();
+            // Task3();
+            Task3();
         }
 
         /*
@@ -146,36 +146,91 @@ namespace Task
             Console.WriteLine("Input your text:");
             string text = Console.ReadLine().Trim();
 
-            //foreach (var letter in text)
-            //{
-            //    if (Char.IsLetterOrDigit(letter))
-            //    {
-            //        if (Char.IsLetter(letter))
-            //        {
-
-            //        }
-            //        else if (Char.IsDigit(letter))
-            //        {
-
-            //        }
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
-
-            // TODO
+            text = SortString(text);
 
             Console.WriteLine(text);
         }
 
-        /*
-         * Характеристикой столбца целочисленной матрицы назовем сумму модулей его отрицательных нечетных элементов. 
-         * Переставляя столбцы заданной матрицы, расположить их в соответствии с ростом характеристик. 
-         * Найти сумму элементов в тех столбцах, которые содержат хотя бы один отрицательный элемент
-         */
-        private static void Task4()
+        static string SortString(string str)
+        {
+            str = SortCharGroups(str);
+            str = SortDigitGroups(str);
+            return str;
+        }
+
+        static string SortCharGroups(string str)
+        {
+            string acum = String.Empty;
+            int right_edge = 0;
+
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (Char.IsLetter(str[i]))
+                {
+                    acum += str[i];
+                    right_edge = i;
+                }
+                else if (!Char.IsLetter(str[i]) || i == str.Length - 1)
+                {
+                    if (acum.Length != 0)
+                    {
+                        char[] acum_copy = acum.ToCharArray();
+                        Array.Sort(acum_copy);
+
+                        acum = new string(acum_copy);
+
+                        char[] str_copy = str.ToCharArray();
+                        acum.CopyTo(0, str_copy, i - acum.Length, acum.Length);
+                        str = new String(str_copy);
+                        acum = String.Empty;
+                    }
+                }
+            }
+
+            return str;
+        }
+
+        static string SortDigitGroups(string str)
+        {
+            string acum = String.Empty;
+            int right_edge = 0;
+
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (Char.IsDigit(str[i]))
+                {
+                    acum += str[i];
+                    right_edge = i;
+                }
+                else if (!Char.IsDigit(str[i]) || i == str.Length - 1)
+                {
+                    if (acum.Length != 0)
+                    {
+                        char[] acum_copy = acum.ToCharArray();
+                        Array.Sort(acum_copy);
+                        Array.Reverse(acum_copy);
+
+                        acum = new string(acum_copy);
+
+                        char[] str_copy = str.ToCharArray();
+                        acum.CopyTo(0, str_copy, i - acum.Length, acum.Length);
+                        str = new String(str_copy);
+                        acum = String.Empty;
+                    }
+                }
+            }
+
+            return str;
+        }
+
+            /*
+             * Характеристикой столбца целочисленной матрицы назовем сумму модулей его отрицательных нечетных элементов. 
+             * Переставляя столбцы заданной матрицы, расположить их в соответствии с ростом характеристик. 
+             * Найти сумму элементов в тех столбцах, которые содержат хотя бы один отрицательный элемент
+             */
+            private static void Task4()
         {
             uint row_number = 0;
             uint column_number = 0;
@@ -243,12 +298,12 @@ namespace Task
 
             for (int i = 0; i < row_num; i++)
             {
-                string row = "";
+                string row = String.Empty;
 
                 for (int j = 0; j < column_num; j++)
                     row += matrix[j][i].ToString() + '\t';
 
-                output += "|\t" + row.Trim() + "\t|\n";
+                output += $"|\t{row.Trim()}\t|\n";
             }
 
             Console.WriteLine(output);
@@ -286,7 +341,7 @@ namespace Task
         // Sorts passed matrix
         static void SortMatrix(ref int[][] matrix)
         {
-            Array.Sort<int[]>(matrix, CompareRows);
+            Array.Sort<int[]>(matrix, CompareColumns);
         }
 
         // Returns sum of array elements in case of passing condition
