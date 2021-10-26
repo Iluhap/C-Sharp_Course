@@ -24,7 +24,7 @@ namespace Triangles
             Points = new Point[3] { first, second, third };
         }
 
-        public override string? ToString()
+        public override string ToString()
         {
             return $"{Points[0].ToString()}, {Points[1].ToString()}, {Points[2].ToString()}";
         }
